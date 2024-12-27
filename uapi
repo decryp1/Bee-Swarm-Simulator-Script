@@ -13,9 +13,22 @@ local xlp = {
     ["humanoid"] = function() 
         return game:GetService("Players").LocalPlayer.Character.Humanoid
     end,
-    ["tween"] = function(time, pos) -- tween to position by (time) + (cframe)
-        game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(time, Enum.EasingStyle.Exponential), {CFrame = pos}):Play() task.wait(time)
+
+    ["tween"] = function(time, pos)
+    local humanoidRootPart = game.Players.LocalPlayer.Character.HumanoidRootPart
+    humanoidRootPart.Anchored = true
+    local tween = game:GetService("TweenService"):Create(humanoidRootPart, TweenInfo.new(time, Enum.EasingStyle.Exponential), {CFrame = pos})
+    tween:Play()
+    tween.Completed:Wait()
+    humanoidRootPart.Anchored = false
     end,
+
+    ["tween2"] = function(time, pos)
+    local humanoidRootPart = game.Players.LocalPlayer.Character.HumanoidRootPart
+    local tween = game:GetService("TweenService"):Create(humanoidRootPart, TweenInfo.new(time, Enum.EasingStyle.Linear), {CFrame = pos})
+    tween:Play()
+    end,
+    
     ["walkTo"] = function(v3) -- walk to position (not pathfinding)
        game:GetService("Players").LocalPlayer.Character.Humanoid:MoveTo(v3) 
     end,
