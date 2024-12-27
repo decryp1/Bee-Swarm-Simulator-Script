@@ -18,7 +18,7 @@ local xlp = {
     local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
     local isanchored = false
 
-    humanoidRootPart.Anchored = true
+    hrp.Anchored = true
     local tween = game:GetService("TweenService"):Create(humanoidRootPart, TweenInfo.new(time, Enum.EasingStyle.Linear), { CFrame = pos })
     tween:Play()
 
