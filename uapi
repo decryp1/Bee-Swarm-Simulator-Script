@@ -1,12 +1,6 @@
 local ver = 1
 
 local xlp = {
-    ["log"] = function(text) -- just print() who tf will use this
-        print(text)
-    end,
-    ["div"] = function(v1, v2) -- divide int :D
-        return v1/v2
-    end,
     ["humanoidrootpart"] = function()
         return game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
     end,
@@ -46,108 +40,7 @@ local xlp = {
             })
         end)
     end,
-    ["isSynapse"] = function()
-        if syn then
-            return true
-        else
-            return false
-        end
-    end,
-    ['isKrnl'] = function()
-        if Krnl then
-            return true
-        else
-            return false
-        end
-    end,
-    ['tableVReturn'] = function(table)
-        for i,v in pairs(table) do
-            print(i,v)
-        end
-    end,
-    ['nickname'] = game.Players.LocalPlayer.Name,
-    ['ver'] = ver,
-    ['placeid'] = game.PlaceId,
-    ['placeversion'] = game.PlaceVersion,
-    ['plrico'] = function(userid)
-        return "https://www.roblox.com/headshot-thumbnail/image?userId="..userid.."&width=420&height=420&format=png"
-    end,
-    ['lplrid'] = game.Players.LocalPlayer.UserId,
-    ['getsitebody'] = function(link)
-        local Response = syn.request({Url = link, Method = "GET"})
-        return Response.Body
-    end,
-    ['killroblox'] = function()
-        game:Shutdown()
-    end,
-    ['rmagnitude'] = function(v1, v2)
-        return (v1-v2).magnitude
-    end,
-    ['varExchange'] = function(v,v2)
-        v,v2 = v2,v
-        local vartable = {v,v2}
-        return vartable
-    end,
-    ['enabled'] = true,
-    ['player'] = game:GetService("Players").LocalPlayer,
-    ['camera'] = function()
-        return game:GetService("Workspace").Camera
-    end,
-    ['search'] = {
-        ['byName'] = function(a,b)
-            for _,v in pairs(a:GetDescendants()) do
-                if v.Name == b then
-                    return v
-                end
-            end
-            warn("Can't find object")
-        end,
-        ["byMaterial"] = function(a, b, c)
-            pcall(function()
-                local size = c
-                if c+1-1 == nil or c < 1 or c == nil then
-                    size = 1 
-                elseif c == 0 then
-                    size = math.huge
-                end
-                for _, v in pairs(a:GetDescendants()) do
-                    if v:IsA(b) then
-                        local objects = {}
-                        table.insert(objects, v)
-                        if #objects == size then
-                        return objects
-                    end
-                    end
-                end
-                warn("Can't find object")
-            end)
-        end
-    },
-    ['childTable'] = function(path)
-        local rtable = {}
-        for _,v in pairs(path:GetChildren()) do
-            table.insert(rtable, v)
-        end
-        return rtable
-    end,
-    ['afunc'] = function(f)
-        --[[
-            f = function
-
-            function functiontest()
-                task.wait(3) -- you can do task.wait(), it will be async
-                print("test")
-            end
-            
-            api.afunc(functiontest)
-        ]]
-        local wa = coroutine.create(
-            function()
-                f()
-            end
-        )
-        coroutine.resume(wa)
-    end,
+    
     ['getclosestpart'] = function(path, t)
         local root = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
         if root == nil then return end
@@ -228,16 +121,7 @@ local xlp = {
             end
         end
     end,
-    ['suffixstring'] = function(st)
-        local suffixes = {"k", "m", "b", "t", "q", "Q", "sx", "sp", "o", "n", "d"}
-        for i = #suffixes, 1, -1 do
-            local mp = math.pow(10, i * 3)
-            if st >= mp then
-                return ("%.1f"):format(st / mp) .. suffixes[i]
-            end
-        end
-        return tostring(st)
-    end,
+
     ['teleport'] = function(cf)
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = cf
     end,
@@ -273,16 +157,7 @@ local xlp = {
             };
         end)
     end,
-    ['returnvalue'] = function(tab, val)
-        ok = false
-        for i,v in pairs(tab) do
-            if string.match(val, v) then
-                ok = v
-                break
-            end
-        end
-        return ok
-    end,
+   
     ['pathfind'] = function(target)
         local PathfindingService = game:GetService("PathfindingService")
         local Humanoid = game.Players.LocalPlayer.Character.Humanoid
@@ -301,41 +176,7 @@ local xlp = {
             end
         end
     end,
-    ['getcpnew'] = function(path)
-        local Closest
-        for i,v in next, path:GetChildren() do
-            if Closest == nil then
-                Closest = v
-            else
-                if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Position).magnitude < (Closest.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude then
-                    Closest = v
-                end
-            end
-        end
-        return Closest
-    end,
-    ['getcpfrompart'] = function(path, part)
-        local Closest
-        for i,v in next, path:GetChildren() do
-            if v:IsA("MeshPart") or v:IsA("Part") then
-                if Closest == nil then
-                    Closest = v
-                else
-                    if (part.Position - v.Position).magnitude < (Closest.Position - part.Position).magnitude then
-                        Closest = v
-                    end
-                end
-            end
-        end
-        return Closest
-    end,
-    ['partwithnamepart'] = function(name, path)
-        for i,v in next, path:GetChildren() do
-            if (v.Name:match(name)) then
-                return v
-            end
-        end
-    end,
+    
     ['getbiggestmodel'] = function(path)
         local part
         for i,v in next, path:GetChildren() do
